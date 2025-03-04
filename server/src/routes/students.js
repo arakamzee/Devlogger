@@ -10,6 +10,10 @@ const studentRouter = Router();
 
 studentRouter.route("/").get(getStudents).post(postStudents);
 
-studentRouter.route("/:studentID").put(updateStudents).delete(deleteStudents);
+studentRouter
+  .route("/:studentID")
+  .get(getStudents)
+  .put(updateStudents)
+  .delete(deleteStudents);
 
 export { studentRouter };
