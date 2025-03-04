@@ -15,9 +15,25 @@ export const getStudents = async (req, res) => {
     });
   }
 };
+// get single student
+export const getSingleStudent = async (req, res) => {
+  try {
+    const { studentID } = req.params;
+    if (!ObjectId.isValid(studentID)) throw new Error("Invalid ID");
+    const student = await Student.findById(studentID);
+    res.json({
+      success: true,
+      data: student,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message,
+    });
+  }
+};
 // create students
 export const postStudents = async (req, res) => {
-  let { name, email, phone } = req.body;
+  const { name, email, phone } = req.body;
   try {
     if (!name || !email || !phone) {
       throw new Error("all fields are required");
@@ -71,8 +87,18 @@ export const updateStudents = async (req, res) => {
 };
 
 // delete student
-export const deleteStudents = (req, res) => {
-  res.json({
-    message: "DELETE student request",
-  });
+export const deleteStudents = async (req, res) => {
+  try {
+    const { studentID } = req.params;
+    if (!ObjectId.isValid(studentID)) throw new Error("Invalid ID");
+    const student = await Student.findByIdAndDelete(studentID);
+    res.json({
+      success: true,
+      data: student,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message,
+    });
+  }
 };

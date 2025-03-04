@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   deleteStudents,
+  getSingleStudent,
   getStudents,
   postStudents,
   updateStudents,
@@ -12,7 +13,7 @@ studentRouter.route("/").get(getStudents).post(postStudents);
 
 studentRouter
   .route("/:studentID")
-  .get(getStudents)
+  .get(getSingleStudent)
   .put(updateStudents)
   .delete(deleteStudents);
 
